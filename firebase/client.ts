@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApp, getApps } from "firebase/app";
-import {getAuth} from "firebase-admin/auth";
+import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -12,11 +12,11 @@ const firebaseConfig = {
     storageBucket: "prepwise-b2e37.firebasestorage.app",
     messagingSenderId: "181245700286",
     appId: "1:181245700286:web:7afb18bb412403bb0ed6ef",
-    measurementId: "G-QXB9MP0JZF"
+    measurementId: "G-QXB9MP0JZF",
 };
 
 // Initialize Firebase
-const app = !getApps.length ? initializeApp(firebaseConfig) : getApp;
+const app = !getApps.length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
-export const db = getFirestore(app)
+export const db = getFirestore(app);
