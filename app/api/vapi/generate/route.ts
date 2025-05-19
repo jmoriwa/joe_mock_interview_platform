@@ -1,5 +1,9 @@
 import {google} from "@ai-sdk/google";
 import {generateText} from "ai";
+import {getRandomInterviewCover} from "@/lib/utils";
+import {util} from "protobufjs";
+import newBuffer = util.newBuffer;
+import {db} from "@/firebase/admin";
 
 export async function GET() {
     return Response.json({success: true, data: 'THANK YOU'}, {status: 200});
@@ -25,6 +29,21 @@ export async function POST(request: Request){
         Thank you! <3
     `,
        });
+
+       const interview = {
+           role,  type,  level,
+           techstack: techstack.split(','),
+           questions: JSON.parse(questions),
+           userId: userid,
+           finalized: true,
+           coverImage: getRandomInterviewCover(),
+           createdAt: new Date().toISOString()
+       }
+
+       await db.collection("interviews").add(interview);
+
+       return Response.json({ success: true}, {status: 200})
+
     } catch (error){
         console.error(error);
 
